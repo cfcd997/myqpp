@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>思政教育 | 刷单诈骗警示 - 全民反诈在行动</title>
+    <style>
+        :root {
+            --red: #d32f2f;
+            --red-dark: #b71c1c;
+            --red-light: #ff5252;
+            --gold: #f9a825;
+            --gold-light: #fff3cd;
+            --bg: #fdf2f2;
+            --card-bg: #ffffff;
+            --text: #2c2c2c;
+            --text-light: #555;
+            --border: #fde0e0;
+            --shadow: 0 4px 20px rgba(180, 0, 0, 0.10);
+            --shadow-hover: 0 8px 32px rgba(180, 0, 0, 0.18);
+            --radius: 16px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 顶部警示条 */
+        .alert-strip {
+            background: var(--red-dark);
+            color: #fff;
+            text-align: center;
+            padding: 10px 16px;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+            animation: pulseStrip 2s ease-in-out infinite;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 12px rgba(183, 28, 28, 0.4);
+        }
+        .alert-strip .icon-bell {
+            display: inline-block;
+            animation: ring 1.5s ease-in-out infinite;
+            margin-right: 6px;
+        }
+        @keyframes ring {
+            0%,
+            100% {
+                transform: rotate(0);
+            }
+            10% {
+                transform: rotate(15deg);
+            }
+            20% {
+                transform: rotate(-15deg);
+            }
+            30% {
+                transform: rotate(10deg);
+            }
+            40% {
+                transform: rotate(-10deg);
+            }
+            50%,
+            100% {
+                transform: rotate(0);
+            }
+        }
+        @keyframes pulseStrip {
+            0%,
+            100% {
+                background: var(--red-dark);
+            }
+            50% {
+                background: #9b0000;
+            }
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 20px 18px 40px;
+        }
+
+        /* 头部 Hero */
+        .hero {
+            text-align: center;
+            padding: 32px 20px 24px;
+            background: linear-gradient(160deg, #ffffff 0%, #fff5f5 100%);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--border);
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(255, 82, 82, 0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero .badge {
+            display: inline-block;
+            background: var(--red);
+            color: #fff;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--red-dark);
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+        .hero .subtitle {
+            font-size: 1rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        .hero .思政-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #fff8e1;
+            border: 2px solid #ffe082;
+            padding: 8px 16px;
+            border-radius: 24px;
+            margin-top: 14px;
+            font-weight: 700;
+            color: #e65100;
+            font-size: 0.9rem;
+        }
+        .hero .思政-tag .star {
+            color: var(--gold);
+            font-size: 1.1rem;
+        }
+
+        /* 卡片通用 */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 22px 20px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid transparent;
+            transition: all var(--transition);
+            position: relative;
+        }
+        .card:hover {
+            box-shadow: var(--shadow-hover);
+            border-color: #ffcdd2;
+            transform: translateY(-2px);
+        }
+        .card h2 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--red-dark);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card h2 .icon {
+            font-size: 1.4rem;
+        }
+        .card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+
+        /* 诈骗手法卡片 - 步骤 */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        @media (max-width: 480px) {
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .step-item {
+            background: #fffafa;
+            border-left: 5px solid var(--red-light);
+            padding: 14px 14px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #4a0000;
+            transition: all var(--transition);
+            cursor: default;
+        }
+        .step-item:hover {
+            background: #fff0f0;
+            border-left-color: var(--red);
+            transform: translateX(3px);
+        }
+        .step-item .step-num {
+            display: inline-block;
+            background: var(--red);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            text-align: center;
+            line-height: 26px;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            font-weight: 800;
+            margin-right: 8px;
+        }
+
+        /* 思政金句 */
+        .quote-box {
+            background: linear-gradient(135deg, #fffde7, #fff8e1);
+            border: 2px dashed #ffcc02;
+            border-radius: var(--radius);
+            padding: 18px 20px;
+            margin: 16px 0;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #5d4037;
+            position: relative;
+        }
+        .quote-box::before {
+            content: '❝';
+            font-size: 2.5rem;
+            color: #f9a825;
+            position: absolute;
+            top: -16px;
+            left: 16px;
+            opacity: 0.5;
+        }
+        .quote-box .author {
+            display: block;
+            margin-top: 6px;
+            font-size: 0.8rem;
+            color: #8d6e63;
+            font-weight: 500;
+        }
+
+        /* 警示列表 */
+        .warn-list {
+            list-style: none;
+            padding: 0;
+        }
+        .warn-list li {
+            padding: 10px 14px;
+            margin: 6px 0;
+            background: #fff5f5;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            border: 1px solid #ffcdd2;
+            transition: all var(--transition);
+        }
+        .warn-list li:hover {
+            background: #ffeaea;
+        }
+        .warn-list .warn-icon {
+            color: var(--red);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* 联系人卡片 */
+        .contact-card {
+            background: linear-gradient(135deg, #ffffff, #fffbfb);
+            border: 3px solid var(--red);
+            border-radius: var(--radius);
+            padding: 24px 20px;
+            text-align: center;
+            box-shadow: 0 6px 28px rgba(211, 47, 47, 0.16);
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-card::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(249, 168, 37, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .contact-card h2 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--red-dark);
+            margin-bottom: 10px;
+        }
+        .contact-info {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #333;
+            margin: 6px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .contact-info .highlight {
+            background: #ffeb3b;
+            padding: 4px 12px;
+            border-radius: 6px;
+            color: #b71c1c;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+        .contact-btn {
+            display: inline-block;
+            margin-top: 14px;
+            background: var(--red);
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            transition: all var(--transition);
+            box-shadow: 0 4px 16px rgba(211, 47, 47, 0.35);
+            border: none;
+            cursor: pointer;
+        }
+        .contact-btn:hover {
+            background: #b71c1c;
+            box-shadow: 0 6px 22px rgba(183, 28, 28, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* 推广分享区 */
+        .share-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 8px;
+        }
+        .share-btn {
+            flex: 1 1 auto;
+            min-width: 90px;
+            padding: 10px 16px;
+            border-radius: 24px;
+            border: 2px solid #ddd;
+            background: #fff;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all var(--transition);
+            text-align: center;
+            color: #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        .share-btn:hover {
+            border-color: var(--red);
+            color: var(--red);
+            background: #fff5f5;
+        }
+        .share-btn.primary-share {
+            background: var(--red);
+            color: #fff;
+            border-color: var(--red);
+            box-shadow: 0 3px 12px rgba(211, 47, 47, 0.25);
+        }
+        .share-btn.primary-share:hover {
+            background: #b71c1c;
+            border-color: #b71c1c;
+        }
+
+        /* 页脚 */
+        .footer-note {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 20px;
+            padding: 10px;
+        }
+        .footer-note strong {
+            color: #b71c1c;
+        }
+
+        /* 响应式 */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            .card {
+                padding: 16px 14px;
+            }
+            .contact-info {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* 打印/暗色适配基础 */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #1a1a1a;
+                --card-bg: #242424;
+                --text: #e0e0e0;
+                --text-light: #bbb;
+                --border: #3a2020;
+            }
+            .card {
+                border-color: #3a2020;
+            }
+            .warn-list li {
+                background: #2a1a1a;
+                border-color: #4a2020;
+                color: #e0c0c0;
+            }
+            .step-item {
+                background: #2a1a1a;
+                color: #e0c0c0;
+            }
+            .quote-box {
+                background: #2a2518;
+                border-color: #5a4a10;
+                color: #d4b87a;
+            }
+            .contact-card {
+                background: #242424;
+            }
+            .share-btn {
+                background: #333;
+                color: #ccc;
+                border-color: #555;
+            }
+            .hero {
+                background: #242424;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部警示滚动条 -->
+    <div class="alert-strip">
+        <span class="icon-bell">🔔</span> 警惕刷单返利诈骗 · 守好钱袋子 · 护好幸福家 · 全民反诈进行时
+    </div>
+
+    <div class="container">
+
+        <!-- Hero 头部 -->
+        <div class="hero">
+            <div class="badge">⚠️ 紧急警示</div>
+            <h1>刷单就是诈骗！</h1>
+            <p class="subtitle">一次刷单，步步陷阱；一念贪心，倾家荡产</p>
+            <div class="思政-tag">
+                <span class="star">⭐</span> 思政教育 · 反诈防骗主题宣传 <span class="star">⭐</span>
+            </div>
+        </div>
+
+        <!-- 真实案例 -->
+        <div class="card">
+            <h2><span class="icon">📋</span> 真实案例回顾</h2>
+            <p>某高校学生小张在微信群看到"兼职刷单、日赚300"广告，抱着试试心态下载APP。前3单小额返利顺利到账，第4单"三联单"需垫付5000元。转账后对方称"系统卡单需再补8000元激活"，小张借钱充值后又被要求缴纳"解冻费"……最终被骗<strong style="color:#d32f2f;">3.8万元</strong>，负债累累，学业受影响。</p>
+            <p style="font-size:0.85rem;color:#888;">📌 此类案件已在全国高校发生<strong>数千起</strong>，单笔最高损失超<strong>50万元</strong>。</p>
+        </div>
+
+        <!-- 诈骗手法揭秘 -->
+        <div class="card">
+            <h2><span class="icon">🕵️</span> 刷单诈骗四步套路</h2>
+            <div class="steps-grid">
+                <div class="step-item">
+                    <span class="step-num">1</span> <strong>撒网引流</strong><br>微信群、QQ群、短视频平台发布"高薪兼职"广告
+                </div>
+                <div class="step-item">
+                    <span class="step-num">2</span> <strong>小额返利</strong><br>前几单正常返款，获取信任，诱人深入
+                </div>
+                <div class="step-item">
+                    <span class="step-num">3</span> <strong>大额收割</strong><br>推出"联单""VIP任务"，要求垫付大额资金
+                </div>
+                <div class="step-item">
+                    <span class="step-num">4</span> <strong>消失拉黑</strong><br>以"操作失误""账户冻结"为由拒绝返款，卷钱跑路
+                </div>
+            </div>
+        </div>
+
+        <!-- 思政金句 -->
+        <div class="quote-box">
+            <p>"幸福生活是靠劳动奋斗出来的，不是靠刷单刷出来的。"</p>
+            <span class="author">—— 思政教育核心要义：树立正确劳动观与财富观</span>
+        </div>
+
+        <!-- 防骗要点 -->
+        <div class="card">
+            <h2><span class="icon">🛡️</span> 牢记"三不"原则</h2>
+            <ul class="warn-list">
+                <li><span class="warn-icon">🚫</span> <strong>不轻信</strong>——任何"动动手指就能赚钱"的宣传都是诱饵</li>
+                <li><span class="warn-icon">🚫</span> <strong>不转账</strong>——凡是要求垫付资金、缴纳保证金的一律拒绝</li>
+                <li><span class="warn-icon">🚫</span> <strong>不泄露</strong>——保护好个人信息、银行卡号、验证码</li>
+            </ul>
+            <p style="margin-top:10px;font-weight:700;color:#d32f2f;text-align:center;">
+                📢 刷单行为本身涉嫌<u>违法</u>，参与刷单可能面临法律风险！
+            </p>
+        </div>
+
+        <!-- 思政延伸 -->
+        <div class="card" style="background:#fffdf7;border:2px solid #ffe082;">
+            <h2 style="color:#e65100;"><span class="icon">📖</span> 思政课堂 · 深度思考</h2>
+            <p>刷单诈骗折射出部分青年<strong>急功近利、贪图捷径</strong>的心态。思想政治教育提醒我们：</p>
+            <p>🔹 树立<strong>正确的价值观</strong>——财富应来自诚实劳动</p>
+            <p>🔹 增强<strong>法治意识</strong>——刷单扰乱市场秩序，属违法行为</p>
+            <p>🔹 培养<strong>批判性思维</strong>——面对诱惑多问"为什么是我""凭什么赚钱"</p>
+        </div>
+
+        <!-- 联系人 & 举报方式 -->
+        <div class="contact-card">
+            <h2>📞 联系我们 · 举报咨询</h2>
+            <p style="color:#555;margin-bottom:6px;">如遇刷单诈骗或需要反诈咨询，请联系：</p>
+            <div class="contact-info">
+                <span>📱 反诈专线：</span>
+                <span class="highlight">96110</span>
+            </div>
+            <div class="contact-info">
+                <span>📧 举报邮箱：</span>
+                <span class="highlight">fanzha@example.com</span>
+            </div>
+            <div class="contact-info">
+                <span>👤 思政辅导员：</span>
+                <span class="highlight">李老师 138-XXXX-XXXX</span>
+            </div>
+            <div class="contact-info">
+                <span>🏫 校保卫处：</span>
+                <span>0XX-8765XXXX</span>
+            </div>
+            <a href="tel:96110" class="contact-btn">📞 一键拨打 96110 反诈专线</a>
+        </div>
+
+        <!-- 推广分享区 -->
+        <div class="card" style="text-align:center;">
+            <h2 style="justify-content:center;">📢 推广此页面 · 让更多人远离诈骗</h2>
+            <p style="font-size:0.85rem;color:#888;">每一次转发，都可能挽救一个家庭</p>
+            <div class="share-section">
+                <button class="share-btn primary-share" onclick="sharePage('copy')">📋 复制链接</button>
+                <button class="share-btn" onclick="sharePage('wechat')">💬 分享微信</button>
+                <button class="share-btn" onclick="sharePage('weibo')">📣 分享微博</button>
+                <button class="share-btn" onclick="sharePage('qq')">🐧 分享QQ</button>
+            </div>
+            <p style="font-size:0.75rem;color:#aaa;margin-top:10px;" id="copyHint"></p>
+        </div>
+
+        <!-- 页脚 -->
+        <div class="footer-note">
+            <p>🚨 <strong>全民反诈 · 你我同行</strong> | 思政教育反诈宣传素材 | 刷单就是诈骗，转发就是力量</p>
+            <p style="margin-top:4px;">© 2024 反诈宣传工作组 | 素材可自由转载推广</p>
+        </div>
+    </div>
+
+    <script>
+        function sharePage(type) {
+            const url = window.location.href;
+            const title = '思政教育 | 刷单诈骗警示 - 全民反诈在行动';
+            const desc = '刷单就是诈骗！一次刷单，步步陷阱；一念贪心，倾家荡产。转发提醒身边的人！';
+            const hint = document.getElementById('copyHint');
+
+            switch (type) {
+                case 'copy':
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(url).then(() => {
+                            hint.textContent = '✅ 链接已复制，快去粘贴分享吧！';
+                            hint.style.color = '#2e7d32';
+                        }).catch(() => {
+                            fallbackCopy(url, hint);
+                        });
+                    } else {
+                        fallbackCopy(url, hint);
+                    }
+                    setTimeout(() => { hint.textContent = ''; }, 3000);
+                    break;
+                case 'wechat':
+                    alert('请长按屏幕或截图分享至微信好友/朋友圈\n\n标题：' + title + '\n链接：' + url);
+                    break;
+                case 'weibo':
+                    window.open('https://service.weibo.com/share/share.php?title=' + encodeURIComponent(title + ' - ' + desc) + '&url=' + encodeURIComponent(url), '_blank');
+                    break;
+                case 'qq':
+                    window.open('https://connect.qq.com/widget/shareqq/index.html?title=' + encodeURIComponent(title) + '&desc=' + encodeURIComponent(desc) + '&url=' + encodeURIComponent(url), '_blank');
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        function fallbackCopy(text, hintElement) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                hintElement.textContent = '✅ 链接已复制，快去粘贴分享吧！';
+                hintElement.style.color = '#2e7d32';
+            } catch (e) {
+                hintElement.textContent = '⚠️ 复制失败，请手动复制地址栏链接';
+                hintElement.style.color = '#d32f2f';
+            }
+            document.body.removeChild(textarea);
+        }
+    </script>
+</body>
+</html>
